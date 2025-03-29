@@ -1,5 +1,5 @@
 const express = require("express");
-const { getArtist_byId } = require("../services/artsyService.JS");
+const { getArtist_byId } = require("../services/artsyService.js");
 
 const router = express.Router();
 /**

@@ -1,13 +1,35 @@
+const express = require("express");
+const app = express();
+
 // const mongoose = require("./config/db");
 require("./config/db");
 
-const express = require("express");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-const swaggerJsDoc = require("swagger-jsdoc");
-const swaggerUi = require("swagger-ui-express");
 
-const app = express();
+const swaggerUi = require("swagger-ui-express");
+const swaggerJsdoc = require("swagger-jsdoc");
+// const YAML = require('yamljs');
+// const swaggerDocument = YAML.load('./src/swagger/swagger.yaml');
+
+const options = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Artsy API",
+      version: "1.0.0",
+    },
+    servers: [
+      {
+        url: "http://localhost:8080/api",
+      },
+    ],
+  },
+  apis: ["./src/routes/*.js", "./src/controllers/*.js"], // 你可以根据实际情况修改路径
+};
+
+const swaggerSpec = swaggerJsdoc(options);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // app.use() if for adding midware
 app.use(express.json())
@@ -20,38 +42,11 @@ app.use(cors({
             "https://your-api-url.a.run.app"]  // GCP 后端（Cloud Run API）
 }))
 
-// ✅ 配置 Swagger 文档信息
-const swaggerOptions = {
-    definition: {
-        openapi: "3.0.0",
-        info: {
-            title: "Artsy HW API",
-            version: "1.0.0",
-            description: "This is description detail."
-        },
-        servers: [
-            {
-                url: "http://localhost:8080",  // 本地 API 地址
-                description: "Local server"
-            }
-        ]
-    },
-    apis: [__dirname + "/routes/*.js"]
-    //apis: ["./src/routes/*.js"]  // 指定路由文件里写的 API 注释
-};
-
-// console.log(swaggerJsDoc(swaggerOptions));
-// console.log("__dirname:", __dirname);
-
-const swaggerDocs = swaggerJsDoc(swaggerOptions); //create swagger doc
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));// make swagger `/api-docs` visitable
-
 // routes
-app.use("/api/hello", require("./routes/helloRoutes"));
 app.use("/api/auth", require("./routes/authRoutes"));
-// app.use("/api/users", require("./routes/userRoutes"));
-app.use("/api/artists", require("./routes/artistRoutes"));
-// app.use("/api/favorites", require("./routes/favoritesRoutes"));
+app.use("/api/artsy", require("./routes/artsyRoutes"));
+app.use("/api/favorites", require("./routes/favoriteRoutes"));
+
 
 //app be exported
 module.exports = app;

@@ -40,3 +40,30 @@
 .read-the-docs {
   color: #888;
 }
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  width: 5px;
+  height: 5px;
+  /* border: 0.1px solid #8ab0e9; */
+  box-shadow: 0 0 0.5px 0.5px rgb(60 133 210 / 30%);
+  /* background: rgba(0, 123, 255, 0.3); Bootstrap 主蓝色 */
+  transform: scale(0);
+  animation: ripple-animation 0.6s ease-out;
+  pointer-events: none;
+  z-index: 9999;
+  /* opacity: 1; */
+}
+
+@keyframes ripple-animation {
+  to {
+    transform: scale(10);
+    opacity: 0;
+  }
+}
+

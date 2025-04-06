@@ -38,4 +38,6 @@ jobs:
             --image=${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_REPO_NAME }}/backend:latest \
             --region=${{ secrets.GCP_REGION }} \
             --platform=managed \
-            --allow-unauthenticated
+            --allow-unauthenticated \
+            --update-secrets=ARTSY_CLIENT_ID=ARTSY_CLIENT_ID:latest,ARTSY_CLIENT_SECRET=ARTSY_CLIENT_SECRET:latest \
+            --set-env-vars=NODE_ENV=production,JWT_SECRET=${{ secrets.JWT_SECRET }}

@@ -7,7 +7,7 @@ const authService = {
   getProfile: async () => {
     try {
       const res = await httpService.get("/auth/profile");
-      console.log("✅ /profle 返回用户数据：", res); // ✅ 加这行
+      console.log("✅ /profle 返回用户数据：", res); // 
       return res;
     } catch (error) {
       console.error("❌ /profile 请求失败：", error);

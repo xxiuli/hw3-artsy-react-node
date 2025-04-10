@@ -34,18 +34,18 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use(express.json())
 app.use(cookieParser())
 
-app.use(cors({
-  origin: "http://localhost:5173",
-  credentials: true,
-}))
 // app.use(cors({
-//   origin: [
-//     "http://localhost:5173", // ✅ 本地开发前端
-//     "https://your-gcp-frontend-url.web.app", // ✅ GCP前端
-//     "https://your-api-url.a.run.app" // ✅ GCP后端
-//   ],
+//   origin: "http://localhost:5173",
 //   credentials: true,
-// }));
+// }))
+app.use(cors({
+  origin: [
+    "http://localhost:5173", // ✅ 本地开发前端
+    "https://storage.googleapis.com", // ✅ GCP前端
+    "https://storage.googleapis.com/hw3-artsy-react-node-frontend"
+  ],
+  credentials: true,
+}));
 
 // routes
 app.use("/api/auth", require("./routes/authRoutes"));

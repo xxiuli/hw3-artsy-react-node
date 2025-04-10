@@ -1,7 +1,7 @@
 import httpService from "./httpService";
 
 const authService = {
-  login: (data) => httpService.post("/auth/login", data),
+  login: (data) => httpService.post("/auth/login", data, { withCredentials: true }),
   register: (data) => httpService.post("/auth/register", data),
   logout: () => httpService.post("/auth/logout", {}, { withCredentials: true }),
   getProfile: async () => {

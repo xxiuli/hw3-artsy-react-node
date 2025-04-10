@@ -42,7 +42,9 @@ app.use(cors({
   origin: [
     "http://localhost:5173", // ✅ 本地开发前端
     "https://storage.googleapis.com", // ✅ GCP前端
-    "https://storage.googleapis.com/hw3-artsy-react-node-frontend"
+    "https://storage.googleapis.com/hw3-artsy-react-node-frontend",
+    "https://hw3-artsy-react-node-frontend.storage.googleapis.com",
+    "https://hw3-artsy-react-node-backend-25169468532.us-central1.run.app"
   ],
   credentials: true,
 }));

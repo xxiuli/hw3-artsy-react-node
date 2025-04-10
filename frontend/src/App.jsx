@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"; // ✅ 加上 useState
 import { useAuth } from "./contexts/AuthContext";
 import authService from "./services/authService";
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Routes,
   Route,
 } from "react-router-dom";

@@ -38,6 +38,12 @@ app.use(cookieParser())
 //   origin: "http://localhost:5173",
 //   credentials: true,
 // }))
+
+app.use((req, res, next) => {
+  console.log("🔍 Request origin:", req.headers.origin);
+  next();
+});
+
 app.use(cors({
   origin: [
     "http://localhost:5173", // ✅ 本地开发前端

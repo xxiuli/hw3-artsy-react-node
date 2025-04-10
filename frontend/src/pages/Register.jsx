@@ -9,6 +9,7 @@ import {
     validateEmail,
     validatePassword,
   } from "../utils/validators";
+import httpService from "../services/httpService";
 
 const Register = () => {
   const { setUser } = useAuth();
@@ -23,6 +24,22 @@ const Register = () => {
   const [fullnameError, setFullnameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+
+  const checkEmailExist = async (emailToCheck) => {
+    if (!validateEmail(emailToCheck)) return;
+  
+    try {
+      const res = await httpService.get(`/api/auth/check-email?email=${encodeURIComponent(emailToCheck)}`);
+      if (res.data.exists) {
+        setEmailError("Email is already registered.");
+      } else {
+        setEmailError("");
+      }
+    } catch (err) {
+      console.error("Email check failed:", err);
+      setEmailError("Could not validate email.");
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,21 +58,28 @@ const Register = () => {
 
     try {
       const user = await authService.register({ fullname, email, password });
+      console.log("In Register page, sign up:", user)
       setUser(user);
       navigate("/");
     } catch (err) {
       setError("Registration failed. Try again.");
+      const message = err.response?.data?.message;
+      if (message?.includes("email")) setEmailError(message);
+      else if (message?.includes("fullname")) setFullnameError(message);
+      else setError("Registration failed. Try again.");
     }
   };
+
+  const isFormValid =
+    fullname && email && password &&
+    !fullnameError && !emailError && !passwordError;
 
   return (
     <Container style={{ maxWidth: "400px", marginTop: "100px" }}>
       <Card className="p-4 shadow-sm border">
         <h3 className="mb-4">Register</h3>
-        {error && <Alert variant="danger">{error}</Alert>}
-
         <Form noValidate onSubmit={handleSubmit}>
-            <Form.Group controlId="formFullname" className="mb-3">
+            <Form.Group controlId="formFullname" className="mb-3 text-start">
                 <Form.Label>Fullname</Form.Label>
                 <Form.Control
                     type="text"
@@ -64,37 +88,45 @@ const Register = () => {
                     onBlur={() => setFullnameError(validateFullname(fullname))}
                     isInvalid={!!fullnameError}
                     placeholder="John Doe"
+                    required
                 />
                 <Form.Control.Feedback type="invalid">{fullnameError}</Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group controlId="formEmail" className="mb-3">
+            <Form.Group controlId="formEmail" className="mb-3 text-start">
                 <Form.Label>Email address</Form.Label>
                 <Form.Control
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    onBlur={() => setEmailError(validateEmail(email))}
+                    onBlur={() => {
+                      const emailValidationError = validateEmail(email);
+                      setEmailError(emailValidationError);
+                      if (!emailValidationError) checkEmailExist(email);
+                    }}
                     isInvalid={!!emailError}
                     placeholder="Enter email"
+                    required
                 />
                 <Form.Control.Feedback type="invalid">{emailError}</Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group controlId="formPassword" className="mb-4">
-                <Form.Label>Password</Form.Label>
+            <Form.Group controlId="formPassword" className="mb-4 text-start">
+                <Form.Label className="text-start">Password</Form.Label>
                 <Form.Control
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     onBlur={() => setPasswordError(validatePassword(password))}
                     isInvalid={!!passwordError}
+                    required      
                     placeholder="Password"
                 />
                 <Form.Control.Feedback type="invalid">{passwordError}</Form.Control.Feedback>
             </Form.Group>
 
-            <Button variant="primary" type="submit" className="w-100 mb-3">
+            <Button variant="primary" type="submit" className="w-100 mb-3"
+              disabled={!isFormValid}>
                 Register
             </Button>
         </Form>

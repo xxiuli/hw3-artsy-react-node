@@ -11,7 +11,15 @@ const favoriteSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    artistName: {
+    name: {
+      type: String,
+      required: true,
+    },
+    birthDeathday: {
+      type: String,
+      required: true,
+    },
+    nationality: {
       type: String,
       required: true,
     },

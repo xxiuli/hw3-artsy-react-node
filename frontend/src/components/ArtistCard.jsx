@@ -1,9 +1,13 @@
 import PropTypes from "prop-types";
-import { BsStar, BsStarFill } from "react-icons/bs"; // ⭐️ 引入星星
 import { useAuth } from "../contexts/AuthContext";    // ✅ 检查是否登录
+import FavoriteStar from "./FavoriteStar";
+import { useFavorites } from "../contexts/FavoritesContext";
 
-const ArtistCard = ({ artist, isSelected, onClick, isFavorite, onToggleFavorite }) => {
+const ArtistCard = ({ artist, isSelected, onClick}) => {
   const { isAuthenticated } = useAuth();
+  const { favorites, toggleFavorite } = useFavorites();
+
+  
 
   const defaultImg = "src/assets/artsy_logo.svg";
   // console.log("imgurl:", artist.imageUrl)
@@ -14,8 +18,9 @@ const ArtistCard = ({ artist, isSelected, onClick, isFavorite, onToggleFavorite 
 
   return (
     <div className={`card border-0 text-white text-center `}
-          style={{ backgroundColor: isSelected ? "#112B3C" : "#205375",
+          style={{ backgroundColor: isSelected ? "#074c8f" : "#205375",
                     width: "200px",
+                    minWidth:"200px",
                     height: "250px", 
                     padding:"0",
                     cursor: "pointer",
@@ -24,31 +29,27 @@ const ArtistCard = ({ artist, isSelected, onClick, isFavorite, onToggleFavorite 
                     border: "none",     // ✅ 保险措施
                   }} 
           onMouseEnter={(e) => {
-            if (!isSelected) e.currentTarget.style.backgroundColor = "#3E7CB1"; // hover 蓝色
+            if (!isSelected) e.currentTarget.style.backgroundColor = "#074c8f"; // hover 蓝色
           }}
           onMouseLeave={(e) => {
             if (!isSelected) e.currentTarget.style.backgroundColor = "#205375"; // 恢复原色
           }}
-          onClick={() => onClick(artist.id)} 
+          onClick={() => {
+            onClick(artist.id)
+          }} 
           >
+            {/* #074c8f */}
 
-            {/* STAR FAVORITE */}
-            {isAuthenticated && (
-                                  <div
-                                    className="position-absolute top-0 end-0 m-2"
-                                    onClick={(e) => {
-                                      e.stopPropagation();         // 🚫 防止冒泡触发整个卡片点击
-                                      onToggleFavorite(artist.id); // ⭐️ 切换收藏状态
-                                    }}
-                                    style={{ fontSize: "1.2rem", cursor: "pointer" }}
-                                  >
-                                    {isFavorite ? (
-                                      <BsStarFill color="gold" />
-                                    ) : (
-                                      <BsStar color="white" />
-                                    )}
-                                  </div>
-                                )}
+          {/* STAR FAVORITE */}
+          {isAuthenticated && (
+            <FavoriteStar
+              isFavorite={favorites.some((f) => f.artistId=== artist.id)}
+              onToggle={(e) => {
+                e.stopPropagation();               // ✅ 阻止点击冒泡
+                toggleFavorite(artist);
+              }}
+              floating={true}                      // ✅ 表示右上角悬浮样式
+            />)}
 
 
             <div className="mb-2">
@@ -66,8 +67,6 @@ ArtistCard.propTypes = {
   artist: PropTypes.object.isRequired,
   isSelected: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
-  isFavorite: PropTypes.bool,               // ✅ 新增
-  onToggleFavorite: PropTypes.func,         // ✅ 新增
 };
 
 export default ArtistCard;

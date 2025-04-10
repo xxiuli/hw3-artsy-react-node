@@ -51,13 +51,13 @@ const httpService = {
 const extractErrorMessage = (error) => {
     if (error.response && error.response.data && typeof error.response.data === "object") {
       // artsy 返回的一般是这种结构：{ type: "other_error", message: "Artist Not Found" }
-      console.log("ERROR IN HTTP");
+      console.log("ERROR IN HTTP 1: ", error.response.data.message);
       return error.response.data.message || "Unknown Error";
     } else if (error.message) {
-      console.log("ERROR IN HTTP");
+      console.log("ERROR IN HTTP 2",error.message);
       return error.message;
     } else {
-      console.log("ERROR IN HTTP");
+      console.log("ERROR IN HTTP3 ", error);
       return "Unknown error occurred during HTTP request.";
     }
   };

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const favoriteController = require("../controllers/favoriteController");
+const requireAuth = require("../middleware/requireAuth"); // 路径按你实际存放位置调整
 
 /**
  * @swagger
@@ -21,7 +22,7 @@ const favoriteController = require("../controllers/favoriteController");
  *       500:
  *         description: Failed to retrieve favorites
  */
-router.get("/", favoriteController.getFavorites);
+router.get("/", requireAuth,　favoriteController.getFavorites);
 
 /**
  * @swagger
@@ -35,23 +36,19 @@ router.get("/", favoriteController.getFavorites);
  *         application/json:
  *           schema:
  *             type: object
- *             required: [artistId, artistName]
+ *             required: [artistId, artistName, artistYear, artistNation]
  *             properties:
  *               artistId:
- *                 type: string
- *               artistName:
- *                 type: string
- *               imageUrl:
  *                 type: string
  *     responses:
  *       201:
  *         description: Artist added to favorites
  *       400:
- *         description: Artist already favorited
+ *         description: Artist already favorited or missing fields
  *       500:
  *         description: Failed to add favorite
  */
-router.post("/", favoriteController.addFavorite);
+router.post("/", requireAuth, favoriteController.addFavorite);
 
 /**
  * @swagger
@@ -71,6 +68,6 @@ router.post("/", favoriteController.addFavorite);
  *       500:
  *         description: Failed to remove favorite
  */
-router.delete("/:artistId", favoriteController.removeFavorite);
+router.delete("/:artistId", requireAuth,favoriteController.removeFavorite);
 
 module.exports = router;

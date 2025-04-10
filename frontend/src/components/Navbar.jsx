@@ -16,6 +16,16 @@ const Navbar = () => {
     navigate("/");
   };
 
+  const handleDeleteAccount = async () => {
+    try {
+      await authService.deleteAccount();
+      setUser(null); // 清除用户状态
+      navigate("/"); // 回首页
+    } catch (error) {
+      console.error("❌ Delete failed", error);
+    }
+  };
+
   const headTitle = "Artist Search";
 
   const navLinks = isAuthenticated
@@ -39,6 +49,7 @@ const Navbar = () => {
       user={user}
       isAuthenticated={isAuthenticated}
       onLogout={handleLogout}
+      onAccountDelete={handleDeleteAccount}
     />
   );
 };

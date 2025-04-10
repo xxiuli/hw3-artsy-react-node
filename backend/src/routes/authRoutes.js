@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const authController = require("../controllers/authController");
+const requireAuth = require("../middleware/requireAuth"); // 路径按你实际存放位置调整
+
 
 /**
  * @swagger
@@ -77,7 +79,7 @@ router.post("/login", authController.login);
  *       200:
  *         description: Logged out successfully
  */
-router.post("/logout", authController.logout);
+router.post("/logout",  authController.logout);
 
 /**
  * @swagger
@@ -91,7 +93,7 @@ router.post("/logout", authController.logout);
  *       401:
  *         description: Not authenticated or invalid token
  */
-router.get("/profile", authController.getProfile);
+router.get("/profile", requireAuth, authController.getProfile);
 
 /**
  * @swagger
@@ -114,5 +116,22 @@ router.get("/profile", authController.getProfile);
  *         description: Failed to check email
  */
 router.get("/check-email", authController.checkEmailExists);
+
+/**
+ * @swagger
+ * /auth/delete:
+ *   delete:
+ *     summary: Delete the currently authenticated user's account
+ *     tags: [Auth]
+ *     responses:
+ *       200:
+ *         description: Account deleted successfully
+ *       401:
+ *         description: Not authenticated
+ *       500:
+ *         description: Delete failed
+ */
+router.delete("/delete", requireAuth, authController.deleteAccount);
+
 
 module.exports = router;

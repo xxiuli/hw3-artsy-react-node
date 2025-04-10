@@ -22,8 +22,10 @@ function setAuthCookie(res, user) {
 
   res.cookie("token", token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "Strict",
+    // secure: process.env.NODE_ENV === "production",
+    secure: true, // ✅ 允许跨站带 cookie
+    sameSite: "None",
+    maxAge: 3600000         // 有效期（1 小时）
   });
 }
 

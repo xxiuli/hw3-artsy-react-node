@@ -1,0 +1,77 @@
+/* --- Slide Window 样式 --- */
+#display-window {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 20px 100px 50px;
+    height: 280px;
+    width: 85%;
+    overflow-x: auto;
+    padding: 5px;
+    scroll-behavior: smooth;
+  }
+  
+  #display-window::-webkit-scrollbar {
+    height: 8px;
+  }
+  
+  #display-window::-webkit-scrollbar-thumb {
+    background: rgba(161, 162, 161, 0.5);
+    border-radius: 10px;
+  }
+  
+  /* --- 卡片容器 --- */
+  #cards-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+  }
+  
+  /* --- 单个卡片 --- */
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
+    height: 250px;
+    padding: 5px;
+    margin: 5px;
+    background-color: #205375;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .card:hover {
+    background-color: #112B3C;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  /* --- 卡片内的图片 --- */
+  .card-img img {
+    width: 190px;
+    height: 190px;
+    border: 5px solid white;
+    border-radius: 50%;
+  }
+  
+  /* --- 艺术家名称文本 --- */
+  .card-painter {
+    width: 150px;
+    height: 50px;
+    margin-top: 7px;
+    font-size: large;
+    color: white;
+    text-align: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  /* --- 选中态卡片样式 --- */
+  .selected-card {
+    background-color: #112B3C !important;
+  }
+  

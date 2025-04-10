@@ -66,3 +66,56 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* 布局容器，使用 flex 布局 */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* 至少占满视口高度 */
+}
+
+/* 主内容区域，允许其扩展以填充剩余空间 */
+.main-content {
+  flex: 1;
+  padding: 20px; /* 根据需要添加内边距 */
+}
+
+/* 确保 Navbar 和 Footer 的样式 */
+.navbar {
+  /* 根据需要添加样式 */
+}
+
+.footer {
+  /* 根据需要添加样式 */
+}
+
+input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+
+/* 强制显示横向滚动条 */
+.scrollbar-visible {
+  overflow-x: scroll !important;   /* 用 scroll 而不是 auto */
+  overflow-y: hidden;
+  scrollbar-width: auto;           /* Firefox */
+  -ms-overflow-style: auto;        /* IE 10+ */
+}
+
+/* Webkit 浏览器（Chrome, Safari）专用 */
+.scrollbar-visible::-webkit-scrollbar {
+  height: 8px; /* 滚动条高度 */
+}
+
+.scrollbar-visible::-webkit-scrollbar-thumb {
+  background-color: rgba(13, 17, 20, 0.5); /* 可自定义颜色 */
+  border-radius: 4px;
+}
+

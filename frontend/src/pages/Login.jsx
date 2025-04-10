@@ -15,63 +15,70 @@ const Login = () => {
   const navigate = useNavigate();          // ✅ 登录成功后跳转首页
   const [email, setEmail] = useState("");  // 表单输入状态
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null); // 错误提示
-
-  // 单独的错误状态
+  const [passwordError, setPasswordError] = useState(null); // 错误提示
   const [emailError, setEmailError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null);
 
     const emailErr = validateEmail(email);
+    const passwordError = validatePassword(password);
     setEmailError(emailErr);
+    setPasswordError(passwordError);
 
     // 阻止提交
-    if ( emailErr) return;
+    if ( emailErr || passwordError) return;
 
     try {
       const user = await authService.login({ email, password }); // ✅ 向后端发起登录
       setUser(user);     // ✅ 把登录后的用户存入 AuthContext
       navigate("/");     // ✅ 登录成功后跳转首页
     } catch (err) {
-      setError("Invalid email or password");
+      setPasswordError("Invalid email or password");
     }
   };
+
+  const isFormValid = email && password && !emailError;
 
   return (
     <Container style={{ maxWidth: "400px", marginTop: "100px" }}>
       <Card className="p-4 shadow-sm border">
         <h3 className="mb-4">Login</h3>
-        {error && <Alert variant="danger">{error}</Alert>}
-
         <Form noValidate onSubmit={handleSubmit}>
-            <Form.Group controlId="formEmail" className="mb-3">
+            <Form.Group controlId="formEmail" className="mb-3 text-start">
                 <Form.Label>Email address</Form.Label>
                 <Form.Control
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    onBlur={() => setEmailError(validateEmail(email))}
+                    onBlur={() => {
+                      const emailValidationError = validateEmail(email);
+                      setEmailError(emailValidationError);
+                    }}
                     isInvalid={!!emailError}
                     placeholder="Enter email"
                 />
                 <Form.Control.Feedback type="invalid">{emailError}</Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group controlId="formPassword" className="mb-4">
+            <Form.Group controlId="formPassword" className="mb-4 text-start">
                 <Form.Label>Password</Form.Label>
                 <Form.Control
                     type="password"
                     value={password}
                     required
                     onChange={(e) => setPassword(e.target.value)}
+                    onBlur={() => {
+                      const passwordValidationError = validatePassword(password);
+                      setPasswordError(passwordValidationError);
+                    }}
+                    isInvalid={!!passwordError}
                     placeholder="Password"
                 />
-                <Form.Control.Feedback type="invalid">Password is required</Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid">{passwordError}</Form.Control.Feedback>
             </Form.Group>
 
-            <Button variant="primary" type="submit" className="w-100 mb-3">
+            <Button variant="primary" type="submit" className="w-100 mb-3" disabled={!isFormValid}>
             Log In
             </Button>
         </Form>

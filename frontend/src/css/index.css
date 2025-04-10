@@ -100,3 +100,22 @@ input:focus {
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
   outline: none;
 }
+
+/* 强制显示横向滚动条 */
+.scrollbar-visible {
+  overflow-x: scroll !important;   /* 用 scroll 而不是 auto */
+  overflow-y: hidden;
+  scrollbar-width: auto;           /* Firefox */
+  -ms-overflow-style: auto;        /* IE 10+ */
+}
+
+/* Webkit 浏览器（Chrome, Safari）专用 */
+.scrollbar-visible::-webkit-scrollbar {
+  height: 8px; /* 滚动条高度 */
+}
+
+.scrollbar-visible::-webkit-scrollbar-thumb {
+  background-color: rgba(13, 17, 20, 0.5); /* 可自定义颜色 */
+  border-radius: 4px;
+}
+

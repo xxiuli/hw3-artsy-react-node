@@ -1,20 +1,20 @@
 import httpService from "./httpService";
 
 const authService = {
-  login: (data) => httpService.post("/login", data),
-  register: (data) => httpService.post("/register", data),
-  logout: () => httpService.get("/logout"),
+  login: (data) => httpService.post("/auth/login", data),
+  register: (data) => httpService.post("/auth/register", data),
+  logout: () => httpService.post("/auth/logout", {}, { withCredentials: true }),
   getProfile: async () => {
     try {
-      const res = await httpService.get("/me");
-      console.log("✅ /me 返回用户数据：", res); // ✅ 加这行
+      const res = await httpService.get("/auth/profile");
+      console.log("✅ /profle 返回用户数据：", res); // ✅ 加这行
       return res;
     } catch (error) {
-      console.error("❌ /me 请求失败：", error);
+      console.error("❌ /profile 请求失败：", error);
       throw error;
     }
   },
-  deleteAccount: () => httpService.get("/delete"), // 或者 DELETE 请求
+  deleteAccount: () => httpService.delete("/auth/delete"), // 或者 DELETE 请求
 };
 
 export default authService;

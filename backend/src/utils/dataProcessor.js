@@ -39,7 +39,7 @@ const cleanArtistDetail= (rawData) => {
   return {
     id: rawData.id,
     name: `${rawData.name}`,
-    nationality: `${rawData.nationality}, (${rawData.birthday} - ${rawData.deathday || ''})` || "",
+    nationality: `${rawData.nationality}, ${rawData.birthday} - ${rawData.deathday || ''}` || "",
     biography: cleanBiography,
   };
 };
@@ -52,9 +52,11 @@ const cleanArtworks = (rawData) => {
   for (const item of items) {
     const id = item?.id || "";
     const title = `${item?.title || ""}, ${item?.date || ""}`;
+    const date = `${item?.date || ""}`;
+    const titleModal = `${item?.title || ""}`;
     const imageUrl = item?._links?.thumbnail?.href || "";
 
-    cleaned.push({ id, title, imageUrl });
+    cleaned.push({ id, title, date, titleModal, imageUrl });
   }
   return cleaned;
 };
@@ -89,11 +91,24 @@ const cleanGenes = (rawData) => {
   return cleaned;
 };
 
+// 点击星星，发出请求,获取favourite artist的所有字段
+const cleanFavoriteArtisInfo = (rawData) => {
+  const cleaned = {
+    id : `${rawData?.id}`|| "",
+    name : `${rawData?.name}`|| "",
+    imageUrl : `${rawData?._links?.thumbnail?.href }`|| "",
+    nationality : `${rawData?.nationality}`|| "",
+    birthDeathday : `${rawData?.birthday || ""} - ${rawData?.deathday || ""}`}
+  return cleaned;
+};
+
+
 module.exports = {
   cleanSearchResult,
   cleanArtistDetail,
   cleanArtworks,
   cleanSimilarArtist,
   cleanGenes,
+  cleanFavoriteArtisInfo,
 };
   

@@ -36,11 +36,17 @@ app.use(express.json())
 app.use(cookieParser())
 
 app.use(cors({
-    credentials: true,
-    origin: ["http://localhost:5173",
-            "https://your-gcp-frontend-url.web.app",  // GCP 前端（Cloud Storage 或 Firebase Hosting）
-            "https://your-api-url.a.run.app"]  // GCP 后端（Cloud Run API）
+  origin: "http://localhost:5173",
+  credentials: true,
 }))
+// app.use(cors({
+//   origin: [
+//     "http://localhost:5173", // ✅ 本地开发前端
+//     "https://your-gcp-frontend-url.web.app", // ✅ GCP前端
+//     "https://your-api-url.a.run.app" // ✅ GCP后端
+//   ],
+//   credentials: true,
+// }));
 
 // routes
 app.use("/api/auth", require("./routes/authRoutes"));

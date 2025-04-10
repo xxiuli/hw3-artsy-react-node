@@ -28,6 +28,7 @@ exports.searchArtists = async (req, res) => {
     console.log("Search result:", rawData) 
     console.log("Raw after clean:", result)
     return res.json(result);
+    // return res.json(rawData);
 
   } catch (error) {
     console.error("Error in searchArtists:", error);
@@ -55,7 +56,7 @@ exports.getArtistDetail = async (req, res) => {
     const result = dataProcessor.cleanArtistDetail(rawData)
     // console.log("Search result:", raw)
     // console.log("Raw after clean:", result)
-
+    // return res.json(rawData);
     return res.json(result);
   } catch (error) {
     console.error("Error in getArtistDetail:", error);
@@ -111,7 +112,7 @@ exports.getArtistArtworks = async (req, res) => {
         }
         
         const result = dataProcessor.cleanArtworks(rawData)
-        console.log("Search result:", rawData)
+        // console.log("Search result:", rawData)
         console.log("Raw after clean:", result)
     
         // return res.json(rawData);

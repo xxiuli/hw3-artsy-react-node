@@ -40,5 +40,5 @@ jobs:
             --platform=managed \
             --allow-unauthenticated \
             --update-secrets=ARTSY_CLIENT_ID=ARTSY_CLIENT_ID:latest,ARTSY_CLIENT_SECRET=ARTSY_CLIENT_SECRET:latest \
-            --set-env-vars=NODE_ENV=production,JWT_SECRET=${{ secrets.JWT_SECRET }}
+            --set-env-vars=NODE_ENV=production,JWT_SECRET=${{ secrets.JWT_SECRET }} \
             --update-secrets=MONGO_URI=MONGO_URI:latest

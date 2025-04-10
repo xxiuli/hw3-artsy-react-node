@@ -44,7 +44,8 @@ app.use(cors({
     "https://storage.googleapis.com", // ✅ GCP前端
     "https://storage.googleapis.com/hw3-artsy-react-node-frontend",
     "https://hw3-artsy-react-node-frontend.storage.googleapis.com",
-    "https://hw3-artsy-react-node-backend-25169468532.us-central1.run.app"
+    "https://hw3-artsy-react-node-backend-25169468532.us-central1.run.app",
+    "https://storage.googleapis.com/hw3-artsy-react-node-frontend/index.html"
   ],
   credentials: true,
 }));

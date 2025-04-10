@@ -9,8 +9,6 @@ const cors = require("cors");
 
 const swaggerUi = require("swagger-ui-express");
 const swaggerJsdoc = require("swagger-jsdoc");
-// const YAML = require('yamljs');
-// const swaggerDocument = YAML.load('./src/swagger/swagger.yaml');
 
 const options = {
   definition: {
@@ -21,7 +19,8 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:8080/api",
+        // url: "http://localhost:8080/api",
+        url:"https://hw3-artsy-react-node-backend-25169468532.us-central1.run.app/api-docs",
       },
     ],
   },

@@ -3,13 +3,15 @@ import { useAuth } from "../contexts/AuthContext";    // ✅ 检查是否登录
 import FavoriteStar from "./FavoriteStar";
 import { useFavorites } from "../contexts/FavoritesContext";
 import { useNotification } from "../contexts/NotificationContext";
+import defaultImg from "/images/artsy_logo.svg"; // ✅ Vite 自动处理路径
+
 
 const ArtistCard = ({ artist, isSelected, onClick}) => {
   const { isAuthenticated } = useAuth();
   const { favorites, toggleFavorite } = useFavorites();
   const { addNotification } = useNotification();
 
-  const defaultImg = "/images/artsy_logo.svg";
+  // const defaultImg = "/images/artsy_logo.svg";
   // console.log("imgurl:", artist.imageUrl)
   // console.log("is missing? ", artist.imageUrl.includes("missing_image") )
   const artistImg = artist.imageUrl.includes("missing_image") 

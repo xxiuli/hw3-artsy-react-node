@@ -19,8 +19,8 @@ const options = {
     },
     servers: [
       {
-        // url: "http://localhost:8080/api",
-        url:"https://hw3-artsy-react-node-backend-25169468532.us-central1.run.app/api-docs",
+        url: "http://localhost:8080/api",
+        // url:"https://hw3-artsy-react-node-backend-25169468532.us-central1.run.app/api-docs",
       },
     ],
   },

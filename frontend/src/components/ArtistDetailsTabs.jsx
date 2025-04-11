@@ -6,36 +6,50 @@ import ArtworkCard from "./ArtworkCard";
 import ArtistInfo from "../components/ArtistInfo"
 import ArtworkModal from "../components/ArtworkModal";
 import { useAuth } from "../contexts/AuthContext"; 
+import NoResult from "./NoResult";import SimilarArtistWindow from "./SimilarArtistWindow";
+import { useFavorites } from "../contexts/FavoritesContext"; 
+import LoadingSpinner from "./LoadingSpinner";
+
 
 const ArtistDetailsTabs = ({ 
   artist, 
   // isFavorited, 
   onCardSelect,
+  activeTab,
+  setActiveTab
  }) => {
   const { isAuthenticated } = useAuth();
 
-  const [artworks, setArtworks] = useState([]);
+  const [allArtworks, setNewArtworks] = useState([]);
   const [similarArtists, setSimilarArtists] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState("info");
+  const { favorites, toggleFavorite } = useFavorites();
+
+  // const [activeTab, setActiveTab] = useState("info");
 
   // Modal 状态
   const [showModal, setShowModal] = useState(false);
   const [selectedArtwork, setSelectedArtwork] = useState(null);
   const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    console.log("🎯 ArtistDetailsTabs received artist.id:", artist.id);
+  }, [artist.id]);
   // console.log("🧩 isLoggedIn:", isAuthenticated);
   
   useEffect(() => {
     const fetchArtworks = async () => {
-      setArtworks([]); // ✅ 切 artist 时清空旧的 artworks
+      setNewArtworks([]); // ✅ 切 artist 时清空旧的 artworks
       setLoading(true);
       try {
         //artwork: id, title, date, imageUrl
         const data = await httpService.get(`/artsy/artworks/${ artist.id}`);
+        console.log("🧪 useEffect activated, artist.id:", artist?.id);
+
         // setArtworks(data.slice(0, 5)); // 最多展示 5 个作品
-        setArtworks(data);
+        setNewArtworks(data || []);
       } catch (err) {
-        setArtworks([]);
+        setNewArtworks([]);
       } finally {
         setLoading(false);
       }
@@ -100,16 +114,22 @@ const ArtistDetailsTabs = ({
             artist={artist}
             onCardSelect={onCardSelect}
             />
+          {/* <SimilarArtistWindow
+            artistId={artist.id}
+            onCardSelect={onCardSelect}
+            favorites={favorites}
+            onToggleFavorite={toggleFavorite}
+          /> */}
         </Tab.Pane>
 
         <Tab.Pane eventKey="artworks">
           {loading ? (
-            <p>spinner...</p>
-          ) : artworks.length === 0 ? (
-            <p>No artworks found.</p>
+             <LoadingSpinner />
+          ) : allArtworks.length === 0 ? (
+            <NoResult message="No artworks."/>
           ) : (
             <Row className="g-1">
-              {artworks.map((artwork) => (
+              {allArtworks.map((artwork) => (
                 <Col md={3} key={artwork.id}>
                   <ArtworkCard
                     artwork={artwork}

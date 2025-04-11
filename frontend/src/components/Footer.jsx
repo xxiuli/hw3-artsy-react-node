@@ -5,7 +5,7 @@ const Footer = () => {
             <footer className="bg-dark text-white text-center py-2 fixed-bottom">
                 <p className="mb-0">
                     Powered by
-                    <img src="src/assets/artsy_logo.svg" alt="artsy_logo" width="15" className="mx-1" />
+                    <img src="/images/artsy_logo.svg" alt="artsy_logo" width="15" className="mx-1" />
                     <a href="https://www.artsy.net" rel="noreferrer" className="text-white text-decoration-none">
                     Artsy.
                     </a>

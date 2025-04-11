@@ -1,6 +1,6 @@
 import axios from "axios";
 
-
+const BASE_URL1 = "http://localhost:8080/api"
 const BASE_URL = "https://hw3-artsy-react-node-backend-25169468532.us-central1.run.app/api";
 
 

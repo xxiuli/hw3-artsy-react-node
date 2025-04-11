@@ -13,6 +13,7 @@ import Register from "./pages/Register";
 import "./css/App.css"
 import ArtistDetailsTabs from "./components/ArtistDetailsTabs";
 import Favorites from "./pages/Favorites";
+import NotificationStack from "./components/NotificationStack";
 
 function App() {
   const { setUser } = useAuth();
@@ -68,16 +69,18 @@ function App() {
 
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home favorites={favorites} onToggleFavorite={handleToggleFavorite}/>} />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          <Route path="favorites" element={
-            <Favorites favorites={favorites} onRemove={handleToggleFavorite} />} />
-        </Route>
-      </Routes>
+      <NotificationStack />
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home favorites={favorites} onToggleFavorite={handleToggleFavorite}/>} />
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+            <Route path="favorites" element={
+              <Favorites favorites={favorites} onRemove={handleToggleFavorite} />} />
+          </Route>
+        </Routes>
     </Router>
+
   );
 }
 

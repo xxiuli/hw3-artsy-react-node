@@ -87,8 +87,12 @@ exports.getSimilarArtists = async (req, res) => {
       console.log("Search result:", rawData)
       // console.log("Raw after clean:", result)
   
-      // return res.json(rawData);
       return res.json(result);
+      // return res.json(rawData);
+      // return res.json({
+      //   ...result,
+      //   id: artistId,
+      // });
     } catch (error) {
       console.error("Error in getSimilarArtist:", error);
       res.status(500).json({ error: "Failed to fetch similar artist detail" });
@@ -104,7 +108,9 @@ exports.getArtistArtworks = async (req, res) => {
     try {
         const artistId = req.params.id;
         const param = {artist_id: artistId, size: 10}
-        const { success, rawData, error } = await httpService.get(`/artworks/{artistId}`);
+        // const { success, rawData, error } = await httpService.get(`/artworks/{artistId}`);
+        const { success, rawData, error } = await httpService.get(`/artworks`,param);
+
         
         if (!success) {
           console.error("Error fetching Artwork:", error);

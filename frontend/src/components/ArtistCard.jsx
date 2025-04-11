@@ -2,19 +2,21 @@ import PropTypes from "prop-types";
 import { useAuth } from "../contexts/AuthContext";    // ✅ 检查是否登录
 import FavoriteStar from "./FavoriteStar";
 import { useFavorites } from "../contexts/FavoritesContext";
+import { useNotification } from "../contexts/NotificationContext";
 
 const ArtistCard = ({ artist, isSelected, onClick}) => {
   const { isAuthenticated } = useAuth();
   const { favorites, toggleFavorite } = useFavorites();
+  const { addNotification } = useNotification();
 
-  
-
-  const defaultImg = "src/assets/artsy_logo.svg";
+  const defaultImg = "/images/artsy_logo.svg";
   // console.log("imgurl:", artist.imageUrl)
   // console.log("is missing? ", artist.imageUrl.includes("missing_image") )
   const artistImg = artist.imageUrl.includes("missing_image") 
                     ? defaultImg 
                     : artist.imageUrl;
+
+  const isFavorite = favorites.some((f) => f.artistId === artist.id);
 
   return (
     <div className={`card border-0 text-white text-center `}
@@ -35,7 +37,9 @@ const ArtistCard = ({ artist, isSelected, onClick}) => {
             if (!isSelected) e.currentTarget.style.backgroundColor = "#205375"; // 恢复原色
           }}
           onClick={() => {
-            onClick(artist.id)
+            // onClick(artist.id)
+            onClick(artist)
+
           }} 
           >
             {/* #074c8f */}
@@ -47,6 +51,12 @@ const ArtistCard = ({ artist, isSelected, onClick}) => {
               onToggle={(e) => {
                 e.stopPropagation();               // ✅ 阻止点击冒泡
                 toggleFavorite(artist);
+                
+                if (favorites.some((f) => f.artistId === artist.id)) {
+                  addNotification("Removed from favorites", "danger");
+                } else {
+                  addNotification("Added to favorites", "success");
+                }
               }}
               floating={true}                      // ✅ 表示右上角悬浮样式
             />)}

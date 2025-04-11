@@ -11,6 +11,7 @@ const Home = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [selectedArtist, setSelectedArtist] = useState(null); //detail of a selected artist
   const [selectedArtistId, setSelectedArtistId] = useState(null);
+  const [activeTab, setActiveTab] = useState("info");
   
   const [hasSearched, setHasSearched] = useState(false);
   // const [favorites, setFavorites] = useState([]);
@@ -50,16 +51,18 @@ const Home = () => {
   // };
   const getDetail_byArtistId = async (artist) => {
     try {
+      
       const data = await httpService.get(`/artsy/artists/${artist.id}`);
       // setArtistDetail(data||[]);
 
-      setSelectedArtistId(artist.id);
+      setSelectedArtistId(data.id);
       setSelectedArtist(data||[]);
       console.log("Selecting artist:", selectedArtistId);
       console.log("HOME get artist Detail:", data)
     } catch (err) {
       // setArtistDetail(null);
       setSelectedArtist(null);
+      setSelectedArtistId(null);
     } 
   };
 
@@ -84,6 +87,9 @@ const Home = () => {
           {selectedArtist && 
             <ArtistDetailsTabs 
               artist={selectedArtist} 
+              key={selectedArtistId}
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
               //favorites={favorites}                  // ✅ 新增
               //onToggleFavorite={onToggleFavorite} // ✅ 新增
             />}

@@ -10,7 +10,8 @@ const SimilarArtistWindow = ({ artistId, onCardSelect, favorites, onToggleFavori
     const fetchSimilarArtists = async () => {
       try {
         const data = await httpService.get(`/artsy/artists/${artistId}/similar`);
-        setSimilarArtists(data.slice(0, 5));
+        const artistArray = Array.isArray(data) ? data : data.artists || [];
+        setSimilarArtists(artistArray.slice(0, 5));
         console.log("✅ Got similar artists:", data);
       } catch (err) {
         console.error("❌ Fetch similar artists failed", err.response?.data || err.message);

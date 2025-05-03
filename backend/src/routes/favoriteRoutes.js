@@ -89,7 +89,6 @@ router.delete("/:artistId", requireAuth,favoriteController.removeFavorite);
  *       500:
  *         description: Failed to fetch artist info
  */
-router.get("/artist-info/:artistId", requireAuth, favoriteController.getFavoriteArtistInfo);
-
+router.get("/favorite-artist/:artistId", requireAuth, favoriteController.getFavoriteArtistInfo);
 
 module.exports = router;

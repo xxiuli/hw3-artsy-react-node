@@ -16,14 +16,14 @@ const SearchBar = ({ onSearch }) => {
     try {
       await onSearch(query.trim());
     } finally {
-      setLoading(false); // 👈 无论成功失败都结束 loading
+      setLoading(false); // 
     }
   };
 
   const handleClear = () => {
     setQuery("");
     setLoading(false);
-    onSearch(""); // 清空搜索结果
+    onSearch(""); 
   };
 
   return (

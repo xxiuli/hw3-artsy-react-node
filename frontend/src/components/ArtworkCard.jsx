@@ -48,11 +48,11 @@ const ArtworkCard = ({ artwork, onViewCategories }) => {
               backgroundColor: isHovered ? "#074c8f" : "#eceef1",
               color: isHovered ? "white" : "#333",  
               padding: "0.3rem 0",
-              cursor: "pointer",                // ✅ 手型鼠标
+              cursor: "pointer",                
               fontSize: "1rem",
               fontWeight: "500",
               userSelect: "none",   
-                        }}            // ✅ 防止文字选中
+                        }}           
             
             onClick={() => onViewCategories(artwork)}
             >View categories

@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-//import SimilarArtistWindow from "./SimilarArtistWindow.jsx"; // ✅ 如果你已经抽出
+//import SimilarArtistWindow from "./SimilarArtistWindow.jsx"; // 
 import { useAuth } from "../contexts/AuthContext"; 
 import SimilarArtistWindow from "./SimilarArtistWindow";
 import FavoriteStar from "./FavoriteStar";
@@ -21,10 +21,10 @@ const ArtistInfo = ({
           <FavoriteStar
           isFavorite={favorites.some((f) => f.artistId=== artist.id)}
             onToggle={(e) => {
-                e.stopPropagation();               // ✅ 阻止点击冒泡
+                e.stopPropagation();              
                 toggleFavorite(artist);
             }}
-            floating={false}                      // ✅ 表示右上角悬浮样式
+            floating={false}                     
             />)}
       </h2>
 
@@ -41,7 +41,7 @@ const ArtistInfo = ({
           onCardSelect={onCardSelect}
           isFavorite={isFavorite}
               onToggle={(e) => {
-                e.stopPropagation();               // ✅ 阻止点击冒泡
+                e.stopPropagation();              
                 toggleFavorite(artist);
               }}
         />

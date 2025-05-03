@@ -9,8 +9,8 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await httpService.get("/auth/profile"); // 后端返回当前用户信息
-        setUser(res); // ✅ 重新设置 user
+        const res = await httpService.get("/auth/profile"); 
+        setUser(res); //
       } catch (err) {
         setUser(undefined);
       }

@@ -19,15 +19,15 @@ function App() {
   const { setUser } = useAuth();
   const [favorites, setFavorites] = useState([]);
 
-  // ✅ 页面加载时从后端恢复登录状态
+  // 页面加载时从后端恢复登录状态
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const user = await authService.getProfile(); // 会自动带 cookie
-        console.log("✅ 自动恢复登录：", user);
+        console.log("自动恢复登录：", user);
         setUser(user);
       } catch (err) {
-        console.log("⚠️ 用户未登录或 token 失效");
+        console.log("用户未登录或 token 失效");
         setUser(null);
       }
     };

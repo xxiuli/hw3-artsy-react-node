@@ -11,7 +11,6 @@ export const NotificationProvider = ({ children }) => {
     const id = Date.now();
     setNotifications((prev) => [...prev, { id, message, type }]);
 
-    // ⏳ 自动在 3 秒后移除
     setTimeout(() => {
       setNotifications((prev) => prev.filter((n) => n.id !== id));
     }, 3000);

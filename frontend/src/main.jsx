@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
 import { AuthProvider } from "./contexts/AuthContext"; 
-import { FavoritesProvider } from "./contexts/FavoritesContext"; // ✅ 引入 Favorites Context
+import { FavoritesProvider } from "./contexts/FavoritesContext"; 
 import "bootstrap/dist/css/bootstrap.min.css";
 import { NotificationProvider } from "./contexts/NotificationContext.jsx";
 

@@ -24,11 +24,11 @@ const Navbar = () => {
   const handleDeleteAccount = async () => {
     try {
       await authService.deleteAccount();
-      setUser(null); // 清除用户状态
+      setUser(null); 
       addNotification("Account deleted", "danger");
-      navigate("/"); // 回首页
+      navigate("/"); 
     } catch (error) {
-      console.error("❌ Delete failed", error);
+      console.error("Delete failed", error);
     }
   };
 

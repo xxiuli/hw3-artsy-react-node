@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { useFavorites } from "../contexts/FavoritesContext";
 import { useEffect, useState } from "react";
 
-// 相对时间格式化工具
+// 
 const formatRelativeTime = (dateString) => {
   const time = new Date(dateString);
-  if (isNaN(time.getTime())) return "Just now"; // 避免 NaN
+  if (isNaN(time.getTime())) return "Just now"; 
 
   const now = new Date();
   const diff = Math.floor((now - time) / 1000);
@@ -26,7 +26,7 @@ const FavoriteArtistCard = ({ artist }) => {
   const { toggleFavorite } = useFavorites();
   const [relativeTime, setRelativeTime] = useState(formatRelativeTime(artist.createdAt));
 
-  // 自动更新时间每 10 秒一次
+  
   useEffect(() => {
     const interval = setInterval(() => {
       setRelativeTime(formatRelativeTime(artist.createdAt));
@@ -35,7 +35,7 @@ const FavoriteArtistCard = ({ artist }) => {
   }, [artist.createdAt]);
 
   const handleRemove = (e) => {
-    e.stopPropagation(); // 避免触发跳转
+    e.stopPropagation(); 
     toggleFavorite({ id: artist.artistId });
   };
 
@@ -44,13 +44,13 @@ const FavoriteArtistCard = ({ artist }) => {
   };
 
   return (
-<div className="mb-3">  {/* ✅ 这是外层容器，用 mb 控制卡片间距 */}
+<div className="mb-3">  
   <div
     className="card text-white shadow-sm"
     style={{
       width: "300px",
       height: "170px",
-      marginBottom: "0px",         // ✅ 避免额外垂直间距
+      marginBottom: "0px",         
       backgroundImage: `url(${artist.imageUrl})`,
       backgroundSize: "cover",
       backgroundPosition: "center",

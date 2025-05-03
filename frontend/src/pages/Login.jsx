@@ -11,11 +11,11 @@ import {
   } from "../utils/validators";
 
 const Login = () => {
-  const { setUser } = useAuth();           // ✅ 从 context 获取 setUser 方法
-  const navigate = useNavigate();          // ✅ 登录成功后跳转首页
-  const [email, setEmail] = useState("");  // 表单输入状态
+  const { setUser } = useAuth();           
+  const navigate = useNavigate();          
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordError, setPasswordError] = useState(null); // 错误提示
+  const [passwordError, setPasswordError] = useState(null);
   const [emailError, setEmailError] = useState("");
 
   const handleSubmit = async (e) => {
@@ -30,9 +30,9 @@ const Login = () => {
     if ( emailErr || passwordError) return;
 
     try {
-      const user = await authService.login({ email, password }); // ✅ 向后端发起登录
-      setUser(user);     // ✅ 把登录后的用户存入 AuthContext
-      navigate("/");     // ✅ 登录成功后跳转首页
+      const user = await authService.login({ email, password }); 
+      setUser(user);     
+      navigate("/");    
     } catch (err) {
       setPasswordError("Invalid email or password");
     }

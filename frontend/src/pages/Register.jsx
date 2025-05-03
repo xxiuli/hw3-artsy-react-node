@@ -20,7 +20,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
-  // 单独的错误状态
+
   const [fullnameError, setFullnameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");

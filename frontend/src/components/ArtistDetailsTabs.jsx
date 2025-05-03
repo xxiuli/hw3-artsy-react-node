@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import httpService from "../services/httpService"; // 如果 artworks 需要从后端拿
+import httpService from "../services/httpService"; // 
 import { Tab, Nav, Row, Col,  } from "react-bootstrap";
 import ArtworkCard from "./ArtworkCard"; 
 import ArtistInfo from "../components/ArtistInfo"
@@ -27,7 +27,7 @@ const ArtistDetailsTabs = ({
 
   // const [activeTab, setActiveTab] = useState("info");
 
-  // Modal 状态
+  // Modal 
   const [showModal, setShowModal] = useState(false);
   const [selectedArtwork, setSelectedArtwork] = useState(null);
   const [categories, setCategories] = useState([]);
@@ -35,18 +35,18 @@ const ArtistDetailsTabs = ({
   useEffect(() => {
     console.log("🎯 ArtistDetailsTabs received artist.id:", artist.id);
   }, [artist.id]);
-  // console.log("🧩 isLoggedIn:", isAuthenticated);
+  // console.log("sLoggedIn:", isAuthenticated);
   
   useEffect(() => {
     const fetchArtworks = async () => {
-      setNewArtworks([]); // ✅ 切 artist 时清空旧的 artworks
+      setNewArtworks([]); // 
       setLoading(true);
       try {
         //artwork: id, title, date, imageUrl
         const data = await httpService.get(`/artsy/artworks/${ artist.id}`);
         console.log("🧪 useEffect activated, artist.id:", artist?.id);
 
-        // setArtworks(data.slice(0, 5)); // 最多展示 5 个作品
+        // setArtworks(data.slice(0, 5));
         setNewArtworks(data || []);
       } catch (err) {
         setNewArtworks([]);
@@ -68,7 +68,7 @@ const ArtistDetailsTabs = ({
 
     if (safeGene.length === 0) {
       console.warn("No categories to show.");
-      return; // ❌ 不显示 modal
+      return; // 
     }
 
       setCategories(safeGene);

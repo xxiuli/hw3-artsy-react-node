@@ -29,8 +29,8 @@ const ArtistCard = ({ artist, isSelected, onClick}) => {
                     padding:"0",
                     cursor: "pointer",
                     flexShrink: 0,
-                    overflow: "hidden", // ✅ 保证圆角裁剪图片
-                    border: "none",     // ✅ 保险措施
+                    overflow: "hidden", 
+                    border: "none",     
                   }} 
           onMouseEnter={(e) => {
             if (!isSelected) e.currentTarget.style.backgroundColor = "#074c8f"; // hover 蓝色
@@ -51,7 +51,7 @@ const ArtistCard = ({ artist, isSelected, onClick}) => {
             <FavoriteStar
               isFavorite={favorites.some((f) => f.artistId=== artist.id)}
               onToggle={(e) => {
-                e.stopPropagation();               // ✅ 阻止点击冒泡
+                e.stopPropagation();               
                 toggleFavorite(artist);
                 
                 if (favorites.some((f) => f.artistId === artist.id)) {
@@ -60,7 +60,7 @@ const ArtistCard = ({ artist, isSelected, onClick}) => {
                   addNotification("Added to favorites", "success");
                 }
               }}
-              floating={true}                      // ✅ 表示右上角悬浮样式
+              floating={true}                     
             />)}
 
 

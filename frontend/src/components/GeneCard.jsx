@@ -29,7 +29,7 @@ const GeneCard = ({ gene }) => {
         style={{
           backgroundColor: "#fff",
           padding: "0.5rem 0.75rem",
-          minHeight: "48px", // ✅ 增加高度
+          minHeight: "48px", //
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -41,7 +41,7 @@ const GeneCard = ({ gene }) => {
             fontSize: "0.9rem",
             fontWeight: 400,
             lineHeight: "1.2",
-            wordBreak: "break-word", // ✅ 避免长词溢出
+            wordBreak: "break-word", //
           }}
         >
           {gene.name}

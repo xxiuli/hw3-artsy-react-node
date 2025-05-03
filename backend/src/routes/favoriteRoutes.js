@@ -70,4 +70,26 @@ router.post("/", requireAuth, favoriteController.addFavorite);
  */
 router.delete("/:artistId", requireAuth,favoriteController.removeFavorite);
 
+/**
+ * @swagger
+ * /favorites/artist-info/{artistId}:
+ *   get:
+ *     summary: Get full artist info to construct a FavoriteArtist object
+ *     tags: [Favorites]
+ *     parameters:
+ *       - in: path
+ *         name: artistId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of the artist to fetch
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved artist info
+ *       500:
+ *         description: Failed to fetch artist info
+ */
+router.get("/artist-info/:artistId", requireAuth, favoriteController.getFavoriteArtistInfo);
+
+
 module.exports = router;

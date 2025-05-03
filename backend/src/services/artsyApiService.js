@@ -12,7 +12,7 @@ const artsyApiService = {
     return dataProcessor.cleanArtistSearchResults(raw);
   },
 
-  /**
+  /*
    * Get artist detail by ID
    * @param {string} id
    * @returns {Object} cleaned artist detail

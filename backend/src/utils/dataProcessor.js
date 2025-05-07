@@ -85,11 +85,19 @@ const cleanGenes = (rawData) => {
     const id = item?.id || "";
     const name = item?.name || "";
     const imageUrl = item?._links?.thumbnail?.href || "";
+    const description = item?.description;
 
-    cleaned.push({ id, name, imageUrl });
+    cleaned.push({ id, name, imageUrl, description });
   }
   return cleaned;
 };
+
+
+
+
+
+
+
 
 // 点击星星，发出请求,获取favourite artist的所有字段
 const cleanFavoriteArtisInfo = (rawData) => {

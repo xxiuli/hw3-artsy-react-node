@@ -132,6 +132,7 @@ exports.getArtistArtworks = async (req, res) => {
 /**
  * Get artwork gene categories
  * GET /api/artsy/genes
+ * 4d8b928b4eb68a1b2c0001f2
  */
 exports.getGenes = async (req, res) => {
     try {
